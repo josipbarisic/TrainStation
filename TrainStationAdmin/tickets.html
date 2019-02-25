@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Karte</title>
+    <script src="assets/plugins/jquery/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="assets/plugins/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- DataTables JQuery -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+
+	<!-- PrintMe plugin -->
+	<script src="PrintPlugin/jquery-printme.js"></script>
+
+</head>
+<body>
+	<header>
+	    <nav class="navbar navbar-default navbar-fixed-top">
+	        <div class="container-fluid">
+	            <div class="navbar-header">
+	                <button type="button" class="navbar-toggle" data-toggle="collapse" 
+	                data-target="#main-navbar">
+	                    <span class="icon-bar">
+	                    </span>
+	                    <span class="icon-bar"></span>
+	                    <span class="icon-bar"></span>
+	             </button>
+	                <a class="navbar-brand" href="#"><span id="logoTitle"><img src="img/logo.jpg" width="25px" height="25px"> Kolodvor</span></a>
+	            </div>
+	            <div class="collapse navbar-collapse" id="main-navbar">
+
+	                <!-- Logout button -->
+					<ul class="nav nav-pills" id="navigacija">
+						<li><a href="gradovi.html" class="pillLink">Gradovi</a></li>
+						<li><a href="" id="logoutBtn">Log out</a></li>
+					</ul>
+				
+	            </div>
+	        </div>
+	    </nav>
+	</header>
+
+	<main>
+		<div id="karteMain">
+			<h1>Karte</h1>
+			<button id="btnDodajKartu" onclick="PolazistaLiveUpdate()" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#izradiKartuModal"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Kreiraj kartu</button>
+
+			<table id="tablica-karte" class="table table-striped">
+				<thead>
+					<tr>
+						<th class="text-center">Datum</th>
+						<th class="text-center">Polazište</th>
+						<th class="text-center">Odredište</th>
+						<th class="text-center">Udaljenost</th>
+						<th class="text-center">Tip karte</th>
+						<th class="text-center">Cijena</th>
+						<th class="text-center">Otvori kartu</th>
+					</tr>
+				</thead>
+				<tbody>
+					
+				</tbody>
+			</table>
+		</div>
+		
+		<!-- Izradi kartu modal-->
+			<div id="izradiKartuModal" class="modal fade" tabindex="-1" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header bg-info text-center">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title"><strong>Kreirajte kartu</strong></h4>
+						</div>
+
+						<div id="karteUnos" class="modal-body">
+
+							<label>Odaberite polazište:</label>
+							<select onchange="OdredistaLiveUpdate()" id="inptPolaziste" class="form-control">
+
+							</select>
+							<br>
+							<label>Odaberite odredište:</label>
+							<select onchange="PolazistaLiveUpdate()" id="inptOdrediste" class="form-control">
+
+							</select>
+							<br>
+
+							<label>Odaberite tip karte:</label>
+							<br>
+							<input type="radio" name="tipKarte" value="jednosmjerna"> Jednosmjerna<br>
+
+							<input  type="radio" name="tipKarte" value="dvosmjerna"> Dvosmjerna<br>
+							<br>
+						</div>
+
+						<div class="modal-footer">
+							<button id="btnCijenaKarte" class="btn btn-primary">Provjeri cijenu karte</button>
+
+							<button id="btnKreirajKartu" class="btn btn-success">Kreiraj kartu</button>
+
+							<button type="button" onclick="ObrisiPodatkeModalaKarte()" class="btn btn-danger" data-dismiss="modal">Odustani</button><br>
+						</div>
+					</div>
+				</div>
+			</div>
+
+	</main>
+
+	<!-- Modal za kartu -->
+			<div id="kartaModal" class="modal fade" tabindex="-1" role="dialog">
+				<div class="modal-dialog" id="modaldialogKarte">
+					<div class="modal-content">
+						<div class="modal-header bg-primary text-center">
+							<!--"&times;" oznacava html entity(rezervirani znak) X-->
+							<button id="zatvoriKartuBtn" type="button" class="close" data-dismiss="modal">&times;</button>
+							<h3 id="kartaIdNaslov">Karta ID-a: </h3><span id="idKarte"></span>
+						</div>
+						<br>
+						<div class="modal-body" id="kartaPrint">
+							<div class="podaciKarte">
+								<label for="datumKarte">Datum izrade:</label>
+								<p id="datumKarte" class="text-center"></p>
+							</div>
+							<div class="podaciKarte">
+								<label for="polazisteKarte">Polaziste:</label>
+								<p id="polazisteKarte"></p>
+							</div>
+							<div class="podaciKarte">
+								<label for="odredisteKarte">Odrediste:</label>
+								<p id="odredisteKarte"></p>
+							</div>
+							<div class="podaciKarte">
+								<label for="tipKarte">Tip karte:</label>
+								<p id="tipKarte"></p>
+							</div>
+							<div class="podaciKarte" id="udaljenostKarteDiv">
+								<label for="udaljenostKarte">Udaljenost:</label>
+								<p id="udaljenostKarte"></p>
+							</div>
+						</div>
+
+						<div class="modal-footer">
+							<div id="cijenaKarteDiv">
+								<label for="cijenaKarte">Cijena:</label>
+								<p id="cijenaKarte"></p>
+							</div>
+							<div>
+								<button id="printBtn" class="btn btn-primary" onclick="IspisKarte()">
+									Isprintaj kartu
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+	<footer>
+		<div class="footer-copyright text-center">© 2018 Copyright: Josip Barišić, Programsko inženjerstvo - VSMTI
+    </div>
+	</footer>
+
+	<!-- Bootstrap plugin i Firebase config -->
+	<script src="assets/plugins/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.8.1/firebase-database.js"></script>
+	<script src="js/dbConfig.js"></script>
+	
+	<script src="js/autentifikacija.js"></script>
+	<script src="js/karte.js"></script>
+	<script src="js/logout.js"></script>
+
+</body>
+</html>

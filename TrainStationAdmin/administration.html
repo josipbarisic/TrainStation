@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Administration</title>
+    <script src="assets/plugins/jquery/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="assets/plugins/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body id="body">
+	<header>
+	    <nav class="navbar navbar-default navbar-fixed-top">
+	        <div class="container-fluid">
+	            <div class="navbar-header">
+	                <button type="button" class="navbar-toggle" data-toggle="collapse" 
+	                data-target="#main-navbar">
+	                    <span class="icon-bar">
+	                    </span>
+	                    <span class="icon-bar"></span>
+	                    <span class="icon-bar"></span>
+	             </button>
+	                <a class="navbar-brand" href="index.html"><span id="logoTitle"><img src="img/logo.jpg" width="25px" height="25px"> Bus Station</span></a>
+	            </div>
+	            <div class="collapse navbar-collapse" id="main-navbar">
+	            
+					<ul class="nav nav-pills" id="navigacija">
+						<li><a href="" id="logoutBtn">Log out</a></li>
+					</ul>
+				
+	            </div>
+	        </div>
+	    </nav>
+	</header>
+
+	<main>
+		<div id="welcomeModal" class="modal fade" tabindex="-1" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header bg-info">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title"><strong>Administration</strong></h4>
+					</div>
+
+					<div class="modal-body">
+						<h1 id="administracijaTitle">You've successfully signed in!</h1>
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button><br>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<section id="podrucjaAdministracije" class="container-fluid">
+	 		<br>
+	 		<br>
+	 		<h1 id="titleAdministracije" class="text-primary text-center">Choose an area of administration</h1>
+	 		<br>
+	 		<div class="row">
+				 <div class="col-sm-6">
+				 	<h2 class="text-secondary text-center">Cities</h2>
+				 	<div id="administracijaDivGradovi" onclick="OtvoriGradove()">
+				 		<img class="administracijaImage" src="img/gradIcon.png">
+				 	</div>
+					
+				 </div>
+				 <div class="col-sm-6">
+				 	<h2 class="text-secondary text-center">Tickets</h2>
+				 	<div id="administracijaDivKarte" onclick="OtvoriKarte()">
+				 		<img class="administracijaImage" src="img/kartaIcon.png">
+				 </div>
+			 </div>
+
+	 	</section>
+
+	</main>
+
+	<footer>
+		<div class="footer-copyright text-center">© 2018 Copyright: Josip Barišić, Software engineering - VSMTI</div>
+	</footer>
+
+	<!-- Bootstrap plugin i Firebase config -->
+	<script src="assets/plugins/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.8.1/firebase-database.js"></script>
+	<script src="js/dbConfig.js"></script>
+	
+	<script src="js/autentifikacija.js"></script>
+	<script src="js/administracija.js"></script>
+	<script src="js/logout.js"></script>
+</body>
+</html>

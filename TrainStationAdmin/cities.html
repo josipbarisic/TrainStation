@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cities</title>
+    <script src="assets/plugins/jquery/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="assets/plugins/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    	    <!-- DataTables JQuery -->
+    <link rel="stylesheet" type="text/css" href="DataTables/datatables.min.css"/>
+ 
+	<script type="text/javascript" src="DataTables/datatables.min.js"></script>
+
+</head>
+<body>
+	<header>
+	    <nav class="navbar navbar-default navbar-fixed-top">
+	        <div class="container-fluid">
+	            <div class="navbar-header">
+	                <button type="button" class="navbar-toggle" data-toggle="collapse" 
+	                data-target="#main-navbar">
+	                    <span class="icon-bar"></span>
+	                    <span class="icon-bar"></span>
+	                    <span class="icon-bar"></span>
+	             	</button>
+	             	<a class="navbar-brand" href="#"><span id="logoTitle"><img src="img/logo.jpg" width="25px" height="25px"> Bus Station</span></a>
+	            </div>
+	            <div class="collapse navbar-collapse" id="main-navbar">
+	            <!-- KreirajKartu button -->
+				<!-- <button id="btnKreirajKartu" class="btn btn-info"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Kreiraj kartu</button> -->
+	                <!-- Logout button -->
+	                <ul class="nav nav-pills" id="navigacija">
+						<li><a id="hoverKarte" href="karte.html" class="pillLink">Tickets</a></li>
+						<li><a href="" id="logoutBtn">Log out</a></li>
+					</ul>
+	            </div>
+	        </div>
+	    </nav>
+	</header>
+
+	<main>
+
+		<div id="tablica-container">
+			<h1 id="gradoviTitle">Cities</h1>
+			<!-- Dodaj grad button -->
+			<button id="btnDodajGr" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#gradModal"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add city</button>
+
+			<table id="tablica-gradovi" class="table table-striped">
+				<thead>
+					<tr>
+						<th class="text-center">#</th>
+						<th class="text-center">Name</th>
+						<th class="text-center">Availability</th>
+						<th class="text-center">Edit</th>
+					</tr>
+				</thead>
+				<tbody>
+					
+				</tbody>
+			</table>
+		</div>
+
+		<!-- Dodaj grad modal-->
+		<div id="gradModal" class="modal fade" tabindex="-1" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header bg-info text-center">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title"><strong>Dodajte grad</strong></h4>
+					</div>
+
+					<div class="modal-body">
+
+						<label>Unesite naziv grada:</label><br>
+						<input id="inptNazivGrada" type="text" placeholder="Naziv" class="form-control">
+						<br>
+						<br>
+						<label>Unesite dostupnost:</label>
+						<br>
+						<input type="radio" name="dostupnostInpt" value="dostupan"> Dostupan<br>
+
+						<input  type="radio" name="dostupnostInpt" value="nedostupan"> Nedostupan<br>
+						<br>
+						<label>Unesite latitudu(decimalni oblik):</label>
+						<input id="inptLatituda" type="text" placeholder="Npr. 12.345678" class="form-control"><br>
+
+						<label>Unesite longitudu(decimalni oblik):</label>
+						<input id="inptLongituda" type="text" placeholder="Npr. 12.345678" class="form-control"><br>
+					</div>
+
+					<div class="modal-footer">
+						<button id="btnDodajGrad" class="btn btn-primary" onclick="DodajGrad()">Dodaj grad</button>
+
+						<button type="button" class="btn btn-danger" onclick="ObrisiPodatkeModala()" data-dismiss="modal">Odustani</button><br>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Uredi dostupnost MODAL-->
+		<div id="dostupnostModal" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header bg-info">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title"><strong>Ažurirajte dostupnost</strong></h4>
+					</div>
+
+					<div class="modal-body">
+
+						<label>Odaberite dostupnost:</label>
+						<br>
+						<input type="radio" name="urediDostupnostInpt" value="dostupan"> Dostupan<br>
+
+						<input type="radio" name="urediDostupnostInpt" value="nedostupan"> Nedostupan<br>
+						<br>
+					</div>
+
+					<div class="modal-footer">
+						<button id="btnUrediDostupnost" class="btn btn-primary" data-dismiss="modal">Ažuriraj</button>
+
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Odustani</button><br>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<footer>
+		<div class="footer-copyright text-center">© 2018 Copyright: Josip Barišić, Programsko inženjerstvo - VSMTI
+    </div>
+	</footer>
+
+	<!-- Bootstrap plugin i Firebase config -->
+	<script src="assets/plugins/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.8.1/firebase-database.js"></script>
+	<script src="js/dbConfig.js"></script>
+	
+	<script src="js/gradovi.js"></script>
+	<script src="js/autentifikacija.js"></script>
+	<script src="js/logout.js"></script>
+</body>
+</html>
